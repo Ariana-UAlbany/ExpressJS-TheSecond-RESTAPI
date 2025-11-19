@@ -12,7 +12,7 @@
     "8000": { "label": "Express App" }
   	},
   
-  	"remoteUser": "node"
+  	"remoteUser": "node",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
