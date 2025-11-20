@@ -22,9 +22,9 @@ app.get('/hello/name/:first/:last', (req, res) => {
 //Exercise 1: Splendid Circles
 app.get('/math/circle/:r', (req, res) => {
   let radius = req.params['r'];
-  let area = (Math.PI*radius*radius).toFixed(2);
-  let circumference = (2*Math.PI*radius).toFixed(2);
-  res.json({area: area, circumference:circumference })
+  let area = +(Math.PI*radius*radius).toFixed(2);//putting a plus prefix converts the string result from toFixed back to a number
+  let circumference = +(2*Math.PI*radius).toFixed(2);
+  res.json({area: area, circumference: circumference })
   //res.json({ok:true, msg: "Area: "+ area.toFixed(2) + ", circumference: " + circumference.toFixed(2) })
 });
 //Exercise 2: Radical Rectangles
@@ -41,7 +41,7 @@ app.get('/math/power/:base/:exponent', (req, res) => {
   let exponent = req.params['exponent'];
   let result = Math.pow(base,exponent);
   if(req.query['root']){
-    let root = Math.sqrt(result);
+    let root = Math.sqrt(base);
     res.json({result: result, root: root})
   }else{
     res.json({result: result})
