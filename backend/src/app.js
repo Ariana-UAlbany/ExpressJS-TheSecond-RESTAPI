@@ -1,6 +1,8 @@
 import express from "express";
 
 const app = express();
+app.use(express.json());
+
 //const PORT = process.env.PORT || 3000;
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
@@ -97,7 +99,7 @@ app.get('/quotebook/categories/', (req, res) => {
   });
   //res.json(category)
   //to return plaintext, use res.send()
-  res.send(category);
+  res.type('text/plain').send(category);
 });
 //Quotes 1.2: Create a GET endpoint at /quotebook/quote/:category 
 app.get('/quotebook/quote/:category', (req, res) => {
@@ -140,12 +142,7 @@ app.post('/quotebook/quote/new', (req, res) => {
   return res.type("text").send("Success!");
 });
 
-
-
-
-
-
-//Legacy:
+//Previous Lab:
 /*
 app.get("/", (req, res) => {
   res.json({ ok: true, msg: "Hello from Express inside a Dev Container! Ariana was here!" });
