@@ -48,6 +48,88 @@ app.get('/math/power/:base/:exponent', (req, res) => {
   }
 });
 
+//Quotes: Extend app.js with these objects:
+let categories = ['successQuotes', 'perseveranceQuotes', 'happinessQuotes'];
+
+let successQuotes = [
+  {
+    'quote': 'Success is not final, failure is not fatal: It is the courage to continue that counts.',
+    'author': 'Winston S. Churchill'
+  },
+  {
+    'quote': 'The way to get started is to quit talking and begin doing.',
+    'author': 'Walt Disney'
+  }
+];
+
+let perseveranceQuotes = [
+  {
+    'quote': 'It’s not that I’m so smart, it’s just that I stay with problems longer.',
+    'author': 'Albert Einstein'
+  },
+  {
+    'quote': 'Perseverance is failing 19 times and succeeding the 20th.',
+    'author': 'Julie Andrews'
+  }
+];
+
+let happinessQuotes = [
+  {
+    'quote': 'Happiness is not something ready made. It comes from your own actions.',
+    'author': 'Dalai Lama'
+  },
+  {
+    'quote': 'For every minute you are angry you lose sixty seconds of happiness.',
+    'author': 'Ralph Waldo Emerson'
+  }
+];
+//Quotes 1.1: Create a GET endpoint at /quotebook/categories
+app.get('/quotebook/categories/', (req, res) => {
+  let category = "";
+  categories.forEach(element => {
+    category += "A possible category is " + element + "\n";
+  });
+  //res.json(category)
+  //to return plaintext, use res.send()
+  res.send(category);
+});
+//Quotes 1.2: Create a GET endpoint at /quotebook/quote/:category 
+app.get('/quotebook/quote/:category', (req, res) => {
+  let category = req.params['category'];
+  if(categories.includes(category)){ 
+    const categoryMap = {// categories holds an array of strings, categoryMap holds the array of category arrays
+      successQuotes,
+      perseveranceQuotes,
+      happinessQuotes
+    };
+    const list = categoryMap[category];//holds the list of quotes from the selected category
+    const randomQuote = list[Math.floor(Math.random() * list.length)];//picks a random quote from that list
+
+    return res.json(randomQuote);//return statement used so that the res.json doesnt later get overwritten
+
+    //return res.json({msg: "category exists: " + category})//temp
+  }else{
+    return res.type('text').status(400).send({error: 'no category listed for ' + category});
+  }
+
+
+  /*
+  let matchFound = false;
+  let error ='no category listed for ' + category;
+  categories.forEach(element => {
+    if(category==element){
+      matchFound=true;
+      res.json({msg: "category exists: ", category: category})
+    }
+  });
+  if(matchFound==false){
+    res.json(error);
+    res.type('text').status(400).send('Error, Bad Request!');
+  }
+    */
+});
+
+
 
 
 
